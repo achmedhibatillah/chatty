@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    # 'server.middleware.ApiKeyMiddleware'
+    'server.middleware.ApiKeyMiddleware'
 ]
 
 ROOT_URLCONF = 'rest.urls'
