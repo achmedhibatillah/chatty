@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/users/', include('server.urls'))
+    path('api/user/', include('server.urls')),
+    path('api/message/', include('server_nlp.urls'))
 ]

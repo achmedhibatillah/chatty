@@ -1,5 +1,3 @@
-import random
-import string
 import bcrypt
 
 from django.shortcuts import render
@@ -11,6 +9,8 @@ from rest_framework import status
 from .models import User
 from .serializers import UserSerializer
 
+from rest.generate import generate_api_key
+
 # Create your views here.
 
 @api_view(['GET'])
@@ -18,18 +18,27 @@ def get_all(request):
     users = User.objects.all()
     serialized = UserSerializer(users, many=True).data
 
-    root_in_get = 'root' in request.GET and request.GET['root'] == 'root'
+    root = 'root' in request.GET and request.GET['root'] == 'root'
 
-    if not root_in_get:
+    if not root:
         for x in serialized:
             x.pop('id', None)
             x.pop('key', None)
 
-    return Response(serialized)
+    return Response(serialized, status=status.HTTP_200_OK)
 
-def generate_api_key(length=35):
-    chars = string.ascii_letters + string.digits
-    return ''.join(random.choice(chars) for _ in range(length))
+@api_view(['GET'])
+def get_detail(request, code):
+    user = User.objects.get(code=code)
+    serialized = UserSerializer(user, many=False).data
+
+    root = 'root' in request.GET and request.GET['root'] == 'root'
+
+    if not root:
+        serialized.pop('id', None)
+        serialized.pop('key', None)
+
+    return Response(serialized, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def add(request):
@@ -78,3 +87,5 @@ def destroy(request):
             'status': 'error',
             'label': 'not-found',
         }, status=status.HTTP_400_BAD_REQUEST)
+    
+

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'server'
+    'server',
+    'server_nlp'
 ]
 
 MIDDLEWARE = [

@@ -3,4 +3,7 @@
 This is the RESTful API server for Chatty, an AI chatbot application.  
 Built with Django and Django REST Framework.  
 
-⚠️ Currently in development — features and API endpoints are subject to change.
+⚠️ Currently in development, features and API endpoints are subject to change.
+
+How to run server?
+PYTHONPATH=$(pwd) python rest/manage.py runserver

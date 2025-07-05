@@ -9,7 +9,7 @@ class ApiKeyMiddleware:
 
     def __call__(self, request):
         if request.path.startswith('/api/'):
-            api_key = request.GET.get('key') or request.headers.get('X-API-KEY')
+            api_key = request.headers.get('X-API-KEY')
 
             if not api_key:
                 return JsonResponse(
